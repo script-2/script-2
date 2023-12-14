@@ -3,7 +3,7 @@ import './App.css'
 import { DrawRandomBitmap } from './components/DrawRandomBitmap'
 
 function App() {
-  const [code, setCode] = useState('blank code')
+  const [code, setCode] = useState('script-2')
 
   function handleTextAreaOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setCode(e.target.value)
