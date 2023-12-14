@@ -1,0 +1,12 @@
+body {
+  background-color: rgb(139, 138, 123);
+}
+
+textarea {
+  width: calc(64px * 5);
+  height: calc(64px * 5);
+  background-color: rgb(139, 138, 123);
+}
+canvas {
+  image-rendering: pixelated;
+}
