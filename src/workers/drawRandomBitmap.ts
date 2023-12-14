@@ -1,5 +1,3 @@
-/* eslint-disable no-eval */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { drawLine } from '@/canvasAPI/drawLine'
 
 onmessage = function (event: {
@@ -28,6 +26,8 @@ onmessage = function (event: {
       }
 
       eval(code)
+
+      line(0, 0, 0, 0)
     }
 
     postMessage(clampedArray, [clampedArray.buffer] as any)

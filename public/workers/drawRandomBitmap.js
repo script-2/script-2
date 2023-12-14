@@ -56,6 +56,7 @@
           drawLine(x1, y1, x2, y2, setPixel);
         }
         eval(code);
+        line(0, 0, 0, 0);
       }
       postMessage(clampedArray, [clampedArray.buffer]);
     }
