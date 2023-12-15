@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import './App.css'
-import { DrawRandomBitmap } from './components/DrawRandomBitmap'
+import { Screen } from '@/components/Screen'
+import { Textarea } from '@/components/Textarea'
 
 function App() {
-  const [code, setCode] = useState('script-2')
-
-  function handleTextAreaOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setCode(e.target.value)
+  const [code, setCode] = useState(`
+  init = () => {
+    return {
+      x: 1
+    }
   }
+
+  draw = (state) => {
+    line(state.x, 2, 54, 60)
+  }
+`)
 
   return (
     <article className="flex flex-col items-center">
-      <textarea
-        onChange={handleTextAreaOnChange}
-        value={code}
-        className="border"
-      />
+      <Textarea value={code} setValue={setCode} />
       <pre>{code}</pre>
-      <DrawRandomBitmap />
+      <Screen code={code} />
     </article>
   )
 }

@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { drawLine } from '@/canvasAPI/drawLine'
 
 onmessage = function (event: {
-  data: { width: number; height: number; code: string }
+  data: {
+    width: number
+    height: number
+    code: string
+    runInit: boolean
+    state: object
+  }
 }) {
-  let { width, height, code } = event.data
+  let { width, height, code, runInit, state } = event.data
 
   let offscreen = new OffscreenCanvas(width, height)
   let ctx = offscreen.getContext('2d')
@@ -25,11 +32,21 @@ onmessage = function (event: {
         drawLine(x1, y1, x2, y2, setPixel)
       }
 
+      let init = () => ({})
+      let update = (state) => ({ x: state.x + 1 })
+      let draw = (_state: object) => {}
+
       eval(code)
 
-      line(0, 0, 0, 0)
+      if (runInit) {
+        console.log('runInit')
+        state = init()
+      }
+
+      state = update(state)
+      draw(state)
     }
 
-    postMessage(clampedArray, [clampedArray.buffer] as any)
+    postMessage({ clampedArray, state }, [clampedArray.buffer] as any)
   }
 }
