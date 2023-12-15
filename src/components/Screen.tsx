@@ -2,7 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { useInterval } from '@/utils/useSetInterval'
 import { Canvas } from '@/components/Canvas'
 
+const WIDTH = 64
+const HEIGHT = 64
+const PIXEL_SIZE = 5
+const FPS = 30
+
 export function Screen({ code }: { code: string }) {
+  let worker = useRef<Worker | null>(null)
+  let state = useRef({})
+  let runInit = useRef(true)
+
   let [clampedArray, setClampedArray] = useState<Uint8ClampedArray | undefined>(
     undefined
   )
@@ -11,14 +20,8 @@ export function Screen({ code }: { code: string }) {
 
   if (prevCode !== code) {
     setPrevCode(code)
+    runInit.current = true
   }
-
-  let width = 64
-  let height = 64
-  let pixelSize = 5
-  let worker = useRef<Worker | null>(null)
-  let runInit = useRef(true)
-  let state = useRef({})
 
   useEffect(() => {
     if (!worker.current) {
@@ -28,10 +31,9 @@ export function Screen({ code }: { code: string }) {
 
   useInterval(() => {
     if (worker.current) {
-      console.log(`posting runInit: ${runInit.current}`)
       worker.current.postMessage({
-        width,
-        height,
+        width: WIDTH,
+        height: HEIGHT,
         code,
         runInit: runInit.current,
         state: state.current,
@@ -51,13 +53,13 @@ export function Screen({ code }: { code: string }) {
         state.current = data.state
       }
     }
-  }, 1000 / 30)
+  }, 1000 / FPS)
 
   return (
     <Canvas
-      width={width}
-      height={height}
-      pixelSize={pixelSize}
+      width={WIDTH}
+      height={HEIGHT}
+      pixelSize={PIXEL_SIZE}
       clampedArray={clampedArray}
     />
   )

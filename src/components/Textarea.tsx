@@ -14,7 +14,7 @@ export function Textarea({
     <textarea
       onChange={handleTextAreaOnChange}
       value={value}
-      className="border"
+      className="border p-4"
     />
   )
 }

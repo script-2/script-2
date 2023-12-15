@@ -33,8 +33,8 @@ onmessage = function (event: {
       }
 
       let init = () => ({})
-      let update = (state) => ({ x: state.x + 1 })
-      let draw = (_state: object) => {}
+      let update = (state: object) => ({})
+      let draw = (state: object) => {}
 
       eval(code)
 
