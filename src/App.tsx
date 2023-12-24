@@ -9,8 +9,8 @@ const HEIGHT = 64
 function App() {
   const [code, setCode] = useState(`init = () => ({ angle: 0 })
 
-update = (state) => ({
-  angle: state.angle
+update = (state, mouseDown) => ({
+  angle: state.angle + (mouseDown ? 0.1 : 0)
 })
 
 draw = (state) => {

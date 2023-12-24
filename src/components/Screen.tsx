@@ -15,12 +15,13 @@ export function Screen({
   height: number
 }) {
   let worker = useRef<Worker | null>(null)
-  let state = useRef({})
+  let gameState = useRef({})
   let runInit = useRef(true)
   let [clampedArray, setClampedArray] = useState<Uint8ClampedArray | undefined>(
     undefined
   )
   let [prevCode, setPrevCode] = useState(code)
+  let [mouseDown, setMouseDown] = useState(false)
 
   if (prevCode !== code) {
     setPrevCode(code)
@@ -40,7 +41,8 @@ export function Screen({
         height,
         code,
         runInit: runInit.current,
-        state: state.current,
+        state: gameState.current,
+        mouseDown,
       })
 
       runInit.current = false
@@ -54,17 +56,29 @@ export function Screen({
         }
       }) {
         setClampedArray(data.clampedArray)
-        state.current = data.state
+        gameState.current = data.state
       }
     }
   }, 1000 / FPS)
 
+  function mouseDownHandler() {
+    setMouseDown(true)
+  }
+  function mouseUpHandler() {
+    setMouseDown(false)
+  }
+
   return (
-    <Canvas
-      width={width}
-      height={height}
-      pixelSize={PIXEL_SIZE}
-      clampedArray={clampedArray}
-    />
+    <div onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler}>
+      <div>mouse: {mouseDown ? 'down' : 'up'}</div>
+      <div className="border cursor-pointer">
+        <Canvas
+          width={width}
+          height={height}
+          pixelSize={PIXEL_SIZE}
+          clampedArray={clampedArray}
+        />
+      </div>
+    </div>
   )
 }

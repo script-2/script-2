@@ -8,9 +8,11 @@ onmessage = function (event: {
     code: string
     runInit: boolean
     state: object
+    mouseDown: boolean
   }
 }) {
-  let { width, height, code, runInit, state } = event.data
+  let { width, height, code, runInit, state, mouseDown } = event.data
+  console.log(mouseDown)
 
   let offscreen = new OffscreenCanvas(width, height)
   let ctx = offscreen.getContext('2d')
@@ -33,7 +35,7 @@ onmessage = function (event: {
       }
 
       let init = () => ({})
-      let update = (state: object) => ({})
+      let update = (state: object, mouseDown: boolean) => ({})
       let draw = (state: object) => {}
 
       eval(code)
@@ -43,7 +45,7 @@ onmessage = function (event: {
         state = init()
       }
 
-      state = update(state)
+      state = update(state, mouseDown)
       draw(state)
     }
 
