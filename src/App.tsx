@@ -9,8 +9,8 @@ const HEIGHT = 64
 function App() {
   const [code, setCode] = useState(`init = () => ({ angle: 0 })
 
-update = (state, mouseDown) => ({
-  angle: state.angle + (mouseDown ? 0.1 : 0)
+update = (state, pointerDown) => ({
+  angle: state.angle + (pointerDown ? 0.5 : 0.1)
 })
 
 draw = (state) => {
@@ -21,7 +21,7 @@ draw = (state) => {
 }`)
 
   return (
-    <article className="h-screen font-mono flex">
+    <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
       <Textarea value={code} setValue={setCode} />
       <Screen code={code} width={WIDTH} height={HEIGHT} />
     </article>

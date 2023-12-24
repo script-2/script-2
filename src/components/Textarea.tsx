@@ -15,7 +15,7 @@ export function Textarea({
       name="textarea"
       onChange={handleTextAreaOnChange}
       value={value}
-      className="p-4 flex-1 h-full"
+      className="p-4 flex-1 w-full"
     />
   )
 }

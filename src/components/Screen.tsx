@@ -21,7 +21,7 @@ export function Screen({
     undefined
   )
   let [prevCode, setPrevCode] = useState(code)
-  let [mouseDown, setMouseDown] = useState(false)
+  let [pointerDown, setPointerDown] = useState(false)
 
   if (prevCode !== code) {
     setPrevCode(code)
@@ -42,7 +42,7 @@ export function Screen({
         code,
         runInit: runInit.current,
         state: gameState.current,
-        mouseDown,
+        pointerDown,
       })
 
       runInit.current = false
@@ -61,24 +61,28 @@ export function Screen({
     }
   }, 1000 / FPS)
 
-  function mouseDownHandler() {
-    setMouseDown(true)
+  function pointerDownHandler() {
+    setPointerDown(true)
   }
-  function mouseUpHandler() {
-    setMouseDown(false)
+  function pointerUpHandler() {
+    setPointerDown(false)
   }
 
   return (
-    <div onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler}>
-      <div>mouse: {mouseDown ? 'down' : 'up'}</div>
-      <div className="border cursor-pointer">
-        <Canvas
-          width={width}
-          height={height}
-          pixelSize={PIXEL_SIZE}
-          clampedArray={clampedArray}
-        />
-      </div>
+    <div className="border flex flex-col items-center">
+      <Canvas
+        width={width}
+        height={height}
+        pixelSize={PIXEL_SIZE}
+        clampedArray={clampedArray}
+      />
+      <button
+        className="border w-full h-40 select-none"
+        onPointerDown={pointerDownHandler}
+        onPointerUp={pointerUpHandler}
+      >
+        Press me
+      </button>
     </div>
   )
 }

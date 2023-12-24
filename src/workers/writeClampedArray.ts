@@ -11,8 +11,7 @@ onmessage = function (event: {
     mouseDown: boolean
   }
 }) {
-  let { width, height, code, runInit, state, mouseDown } = event.data
-  console.log(mouseDown)
+  let { width, height, code, runInit, state, pointerDown } = event.data
 
   let offscreen = new OffscreenCanvas(width, height)
   let ctx = offscreen.getContext('2d')
@@ -35,17 +34,17 @@ onmessage = function (event: {
       }
 
       let init = () => ({})
-      let update = (state: object, mouseDown: boolean) => ({})
-      let draw = (state: object) => {}
+      let update = (_state: object, _pointerDown: boolean) => ({})
+      let draw = (_state: object) => {}
 
       eval(code)
 
       if (runInit) {
-        console.log('runInit')
+        console.log('runInit', line)
         state = init()
       }
 
-      state = update(state, mouseDown)
+      state = update(state, pointerDown)
       draw(state)
     }
 
