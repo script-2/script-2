@@ -47,6 +47,6 @@ onmessage = function (event: {
       draw(state)
     }
 
-    postMessage({ clampedArray, state }, [clampedArray.buffer] as any)
+    postMessage({ clampedArray, state }, [clampedArray.buffer])
   }
 }

@@ -3,11 +3,14 @@ import './App.css'
 import { Screen } from '@/components/Screen'
 import { Textarea } from '@/components/Textarea'
 
+const WIDTH = 64
+const HEIGHT = 64
+
 function App() {
   const [code, setCode] = useState(`init = () => ({ angle: 0 })
 
 update = (state) => ({
-  angle: state.angle + 0.1
+  angle: state.angle
 })
 
 draw = (state) => {
@@ -18,10 +21,9 @@ draw = (state) => {
 }`)
 
   return (
-    <article className="flex flex-col items-center">
+    <article className="h-screen font-mono flex">
       <Textarea value={code} setValue={setCode} />
-      <pre>{code}</pre>
-      <Screen code={code} />
+      <Screen code={code} width={WIDTH} height={HEIGHT} />
     </article>
   )
 }

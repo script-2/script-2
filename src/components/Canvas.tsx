@@ -25,15 +25,12 @@ export function Canvas({
   })
 
   return (
-    <div>
-      <p>{new Date().toLocaleString()}</p>
-      <canvas
-        className="border block"
-        ref={canvasRef}
-        width={width}
-        height={width}
-        style={{ width: width * pixelSize, height: height * pixelSize }}
-      />
-    </div>
+    <canvas
+      className="block"
+      ref={canvasRef}
+      width={width}
+      height={width}
+      style={{ width: width * pixelSize, height: height * pixelSize }}
+    />
   )
 }
