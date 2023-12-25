@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>script-2</title>
+  </head>
+  <body>
+    oauth html
+  </body>
+  <script>
+    const code = window.location.href.match(/\?code=(.*)/)[1]
+    window.opener.script2.handleCode(code)
+    window.close()
+  </script>
+</html>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Screen } from '@/components/Screen'
 import { Textarea } from '@/components/Textarea'
+import { Nav } from '@/components/Nav'
 
 const WIDTH = 64
 const HEIGHT = 64
@@ -10,7 +11,7 @@ function App() {
   const [code, setCode] = useState(`init = () => ({ angle: 0 })
 
 update = (state, pointerDown) => ({
-  angle: state.angle + (pointerDown ? 0.5 : 0.1)
+  angle: state.angle + (pointerDown ? 0.5 : 0)
 })
 
 draw = (state) => {
@@ -22,15 +23,7 @@ draw = (state) => {
 
   return (
     <main>
-      <nav>
-        <a
-          href={`https://github.com/login/oauth/authorize?client_id=${
-            import.meta.env.VITE_CLIENT_ID
-          }`}
-        >
-          Login
-        </a>
-      </nav>
+      <Nav />
       <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
         <Textarea value={code} setValue={setCode} />
         <Screen code={code} width={WIDTH} height={HEIGHT} />
