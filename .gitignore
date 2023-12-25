@@ -1,3 +1,5 @@
 public/workers
 dist
 node_modules
+.env
+.vercel

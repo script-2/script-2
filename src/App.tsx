@@ -21,10 +21,21 @@ draw = (state) => {
 }`)
 
   return (
-    <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
-      <Textarea value={code} setValue={setCode} />
-      <Screen code={code} width={WIDTH} height={HEIGHT} />
-    </article>
+    <main>
+      <nav>
+        <a
+          href={`https://github.com/login/oauth/authorize?client_id=${
+            import.meta.env.VITE_CLIENT_ID
+          }`}
+        >
+          Login
+        </a>
+      </nav>
+      <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
+        <Textarea value={code} setValue={setCode} />
+        <Screen code={code} width={WIDTH} height={HEIGHT} />
+      </article>
+    </main>
   )
 }
 
