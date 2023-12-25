@@ -2,6 +2,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   return res.json({
-    message: `Hello ${process.env.CLIENT_ID}`,
+    message: `Hello ${process.env.CLIENT_ID}!`,
   })
 }
