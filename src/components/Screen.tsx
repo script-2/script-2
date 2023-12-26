@@ -69,7 +69,7 @@ export function Screen({
   }
 
   return (
-    <div className="border flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <Canvas
         width={width}
         height={height}
@@ -77,7 +77,7 @@ export function Screen({
         clampedArray={clampedArray}
       />
       <button
-        className="border w-full h-40 select-none"
+        className="w-full h-40 select-none"
         onPointerDown={pointerDownHandler}
         onPointerUp={pointerUpHandler}
       >

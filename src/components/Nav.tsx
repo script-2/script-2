@@ -1,8 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Octokit } from 'octokit'
+import { Mode } from '@/App'
 
-export function Nav() {
+export function Nav({
+  mode,
+  setMode,
+}: {
+  mode: Mode
+  setMode: React.Dispatch<React.SetStateAction<Mode>>
+}) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
+  let [username, setUsername] = useState<string | undefined>(undefined)
+
   window.script2 = {
     handleCode: async (githubAppCode: string) => {
       let response = await fetch(
@@ -13,15 +22,22 @@ export function Nav() {
         throw new Error('Failed to fetch data')
       }
 
-      let json = await response.json()
-      setAccessToken(json)
-      let octokit = new Octokit({ auth: json })
-      const {
-        data: { login },
-      } = await octokit.rest.users.getAuthenticated()
-      console.log('Hello, %s', login)
+      let auth = await response.json()
+      setAccessToken(auth)
     },
   }
+
+  useEffect(() => {
+    async function fetchUser() {
+      if (!accessToken) return
+      let octokit = new Octokit({ auth: accessToken })
+      let {
+        data: { login },
+      } = await octokit.rest.users.getAuthenticated()
+      setUsername(login)
+    }
+    fetchUser()
+  }, [accessToken])
 
   function onLoginHandler() {
     window.open(
@@ -33,12 +49,37 @@ export function Nav() {
     )
   }
 
+  function onModeHandler(event: React.MouseEvent<HTMLButtonElement>) {
+    let textContent = event.currentTarget.textContent as Mode
+    setMode(textContent)
+  }
+
   return (
-    <nav>
-      <button className="border" onClick={onLoginHandler}>
-        Login
-      </button>
-      <div>{accessToken}</div>
+    <nav className="flex justify-between border-b border-light">
+      <ul className="flex">
+        <li className={`px-1 ${mode == 'GAMES' ? 'bg-light text-dark' : ''}`}>
+          <button onClick={onModeHandler}>GAMES</button>
+        </li>
+        <li className={`px-1 ${mode == 'EDIT' ? 'bg-light text-dark' : ''}`}>
+          <button onClick={onModeHandler}>EDIT</button>
+        </li>
+        {mode == 'EDIT' && (
+          <li className="px-1">
+            <button>NEW</button>
+          </li>
+        )}
+        {mode == 'EDIT' && (
+          <li className="px-1">
+            <button>SAVE</button>
+          </li>
+        )}
+      </ul>
+      <ul className="flex">
+        <li className="px-1">
+          {username && username}
+          {!username && <button onClick={onLoginHandler}>LOGIN</button>}
+        </li>
+      </ul>
     </nav>
   )
 }
