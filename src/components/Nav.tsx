@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Octokit } from 'octokit'
 import { Mode } from '@/App'
+import { skeleton } from '@/utils/skeleton'
 
 export function Nav({
   mode,
   setMode,
+  setCode,
 }: {
   mode: Mode
   setMode: React.Dispatch<React.SetStateAction<Mode>>
+  setCode: React.Dispatch<React.SetStateAction<string>>
 }) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
   let [username, setUsername] = useState<string | undefined>(undefined)
@@ -54,6 +57,9 @@ export function Nav({
     setMode(textContent)
   }
 
+  function onNewHandler() {
+    setCode(skeleton)
+  }
   return (
     <nav className="flex justify-between border-b border-light">
       <ul className="flex">
@@ -65,7 +71,7 @@ export function Nav({
         </li>
         {mode == 'EDIT' && (
           <li className="px-1">
-            <button>NEW</button>
+            <button onClick={onNewHandler}>NEW</button>
           </li>
         )}
         {mode == 'EDIT' && (

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import './App.css'
+import '@/App.css'
 import { Screen } from '@/components/Screen'
 import { Textarea } from '@/components/Textarea'
 import { Nav } from '@/components/Nav'
 import { Games } from '@/components/Games'
+import { skeleton } from '@/utils/skeleton'
 
 const WIDTH = 64
 const HEIGHT = 64
@@ -11,22 +12,11 @@ export type Mode = 'GAMES' | 'EDIT'
 
 function App() {
   let [mode, setMode] = useState<Mode>('GAMES')
-  let [code, setCode] = useState(`init = () => ({ angle: 0 })
-
-update = (state, pointerDown) => ({
-  angle: state.angle + (pointerDown ? 0.5 : 0)
-})
-
-draw = (state) => {
-  let H = 10
-  let x = H * Math.cos(state.angle)
-  let y = H * Math.sin(state.angle)
-  line(31, 31, 31 + x, 31 + y)
-}`)
+  let [code, setCode] = useState(skeleton)
 
   return (
     <main className="bg-dark text-light font-mono text-xl">
-      <Nav mode={mode} setMode={setMode} />
+      <Nav mode={mode} setMode={setMode} setCode={setCode} />
       {mode == 'GAMES' && <Games />}
       {mode == 'EDIT' && (
         <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">

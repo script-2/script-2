@@ -22,9 +22,9 @@ onmessage = function (event: {
     function setPixel(x: number, y: number) {
       x = Math.floor(x)
       y = Math.floor(y)
-      clampedArray[y * width * 4 + x * 4 + 0] = 0
-      clampedArray[y * width * 4 + x * 4 + 1] = 0
-      clampedArray[y * width * 4 + x * 4 + 2] = 0
+      clampedArray[y * width * 4 + x * 4 + 0] = 246
+      clampedArray[y * width * 4 + x * 4 + 1] = 214
+      clampedArray[y * width * 4 + x * 4 + 2] = 189
       clampedArray[y * width * 4 + x * 4 + 3] = 255
     }
 
