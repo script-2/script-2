@@ -23,9 +23,7 @@ export function Nav({
 
   window.script2 = {
     handleCode: async (githubAppCode: string) => {
-      let response = await fetch(
-        `http://localhost:3000/api/callback?githubAppCode=${githubAppCode}`
-      )
+      let response = await fetch(`api/callback?githubAppCode=${githubAppCode}`)
 
       if (!response.ok) {
         throw new Error('Failed to fetch data')
@@ -66,7 +64,7 @@ export function Nav({
   async function onNewHandler() {
     setCode(skeleton)
 
-    let response = await fetch('http://localhost:3000/api/saveGame', {
+    let response = await fetch('api/saveGame', {
       method: 'POST',
       body: JSON.stringify({ code, accessToken }),
     })
@@ -76,7 +74,7 @@ export function Nav({
   }
 
   async function onSaveHandler() {
-    await fetch('http://localhost:3000/api/saveGame', {
+    await fetch('api/saveGame', {
       method: 'POST',
       body: JSON.stringify({ code, accessToken, gameId }),
     })
