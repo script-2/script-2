@@ -10,6 +10,8 @@ const WIDTH = 64
 const HEIGHT = 64
 export type Mode = 'GAMES' | 'EDIT'
 
+// Force deploy
+
 function App() {
   let [mode, setMode] = useState<Mode>('GAMES')
   let [code, setCode] = useState(skeleton)
