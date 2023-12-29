@@ -30,6 +30,7 @@ function App() {
         setMode={setMode}
         code={code}
         setCode={setCode}
+        gameId={gameId}
         setGameId={setGameId}
       />
       {mode == 'GAMES' && <Games />}

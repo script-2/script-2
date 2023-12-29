@@ -8,12 +8,14 @@ export function Nav({
   setMode,
   code,
   setCode,
+  gameId,
   setGameId,
 }: {
   mode: Mode
   setMode: React.Dispatch<React.SetStateAction<Mode>>
   code: string
   setCode: React.Dispatch<React.SetStateAction<string>>
+  gameId: string | undefined
   setGameId: React.Dispatch<React.SetStateAction<string | undefined>>
 }) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
@@ -64,7 +66,7 @@ export function Nav({
   async function onNewHandler() {
     setCode(skeleton)
 
-    let response = await fetch('http://localhost:3000/api/newGame', {
+    let response = await fetch('http://localhost:3000/api/saveGame', {
       method: 'POST',
       body: JSON.stringify({ code, accessToken }),
     })
@@ -74,14 +76,10 @@ export function Nav({
   }
 
   async function onSaveHandler() {
-    let response = await fetch('http://localhost:3000/api/saveGame', {
+    await fetch('http://localhost:3000/api/saveGame', {
       method: 'POST',
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({ code, accessToken, gameId }),
     })
-
-    let json = await response.json()
-
-    console.log(json)
   }
 
   return (
