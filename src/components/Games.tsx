@@ -1,3 +1,3 @@
 export function Games() {
-  return <article>Games</article>
+  return <article className="flex-1"></article>
 }

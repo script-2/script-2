@@ -24,7 +24,7 @@ function App() {
   }, [gameId])
 
   return (
-    <main className="bg-dark text-light font-mono text-xl">
+    <main className="bg-dark text-light font-mono text-xl flex flex-col h-screen">
       <Nav
         mode={mode}
         setMode={setMode}
