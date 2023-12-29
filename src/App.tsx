@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '@/App.css'
 import { Screen } from '@/components/Screen'
 import { Textarea } from '@/components/Textarea'
@@ -13,10 +13,25 @@ export type Mode = 'GAMES' | 'EDIT'
 function App() {
   let [mode, setMode] = useState<Mode>('GAMES')
   let [code, setCode] = useState(skeleton)
+  let [gameId, setGameId] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    if (gameId) {
+      let url = new URL(window.location.toString())
+      url.searchParams.set('gameId', gameId)
+      history.pushState({}, '', url)
+    }
+  }, [gameId])
 
   return (
     <main className="bg-dark text-light font-mono text-xl">
-      <Nav mode={mode} setMode={setMode} setCode={setCode} />
+      <Nav
+        mode={mode}
+        setMode={setMode}
+        code={code}
+        setCode={setCode}
+        setGameId={setGameId}
+      />
       {mode == 'GAMES' && <Games />}
       {mode == 'EDIT' && (
         <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">

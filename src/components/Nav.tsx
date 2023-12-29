@@ -6,11 +6,15 @@ import { skeleton } from '@/utils/skeleton'
 export function Nav({
   mode,
   setMode,
+  code,
   setCode,
+  setGameId,
 }: {
   mode: Mode
   setMode: React.Dispatch<React.SetStateAction<Mode>>
+  code: string
   setCode: React.Dispatch<React.SetStateAction<string>>
+  setGameId: React.Dispatch<React.SetStateAction<string | undefined>>
 }) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
   let [username, setUsername] = useState<string | undefined>(undefined)
@@ -57,9 +61,29 @@ export function Nav({
     setMode(textContent)
   }
 
-  function onNewHandler() {
+  async function onNewHandler() {
     setCode(skeleton)
+
+    let response = await fetch('http://localhost:3000/api/newGame', {
+      method: 'POST',
+      body: JSON.stringify({ code, accessToken }),
+    })
+
+    let { gameId } = await response.json()
+    setGameId(gameId)
   }
+
+  async function onSaveHandler() {
+    let response = await fetch('http://localhost:3000/api/saveGame', {
+      method: 'POST',
+      body: JSON.stringify({ code }),
+    })
+
+    let json = await response.json()
+
+    console.log(json)
+  }
+
   return (
     <nav className="flex justify-between border-b border-light">
       <ul className="flex">
@@ -76,7 +100,7 @@ export function Nav({
         )}
         {mode == 'EDIT' && (
           <li className="px-1">
-            <button>SAVE</button>
+            <button onClick={onSaveHandler}>SAVE</button>
           </li>
         )}
       </ul>
