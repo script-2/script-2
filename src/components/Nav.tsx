@@ -8,15 +8,11 @@ export function Nav({
   setMode,
   code,
   setCode,
-  gameId,
-  setGameId,
 }: {
   mode: Mode
   setMode: React.Dispatch<React.SetStateAction<Mode>>
   code: string
   setCode: React.Dispatch<React.SetStateAction<string>>
-  gameId: string | undefined
-  setGameId: React.Dispatch<React.SetStateAction<string | undefined>>
 }) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
   let [username, setUsername] = useState<string | undefined>(undefined)
@@ -63,21 +59,29 @@ export function Nav({
 
   async function onNewHandler() {
     setCode(skeleton)
-
-    let response = await fetch('api/saveGame', {
-      method: 'POST',
-      body: JSON.stringify({ code, accessToken }),
-    })
-
-    let { gameId } = await response.json()
-    setGameId(gameId)
+    window.history.replaceState(null, '', window.location.pathname)
   }
 
   async function onSaveHandler() {
-    await fetch('api/saveGame', {
-      method: 'POST',
-      body: JSON.stringify({ code, accessToken, gameId }),
-    })
+    let url = new URL(window.location.toString())
+    let gameId = url.searchParams.get('gameId')
+
+    if (gameId) {
+      await fetch('api/saveGame', {
+        method: 'POST',
+        body: JSON.stringify({ code, accessToken, gameId }),
+      })
+    } else {
+      let response = await fetch('api/saveGame', {
+        method: 'POST',
+        body: JSON.stringify({ code, accessToken }),
+      })
+      let json = await response.json()
+      let { gameId } = json
+      let url = new URL(window.location.toString())
+      url.searchParams.set('gameId', gameId)
+      history.pushState({}, '', url)
+    }
   }
 
   return (
@@ -94,7 +98,7 @@ export function Nav({
             <button onClick={onNewHandler}>NEW</button>
           </li>
         )}
-        {mode == 'EDIT' && (
+        {mode == 'EDIT' && accessToken && (
           <li className="px-1">
             <button onClick={onSaveHandler}>SAVE</button>
           </li>
