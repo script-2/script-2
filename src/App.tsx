@@ -36,7 +36,12 @@ function App() {
   return (
     <main className="bg-darkest text-lightest font-mono text-xl flex flex-col h-screen">
       <Nav mode={mode} setMode={setMode} code={code} setCode={setCode} />
-      {mode == 'GAMES' && <Games />}
+      {mode == 'GAMES' && (
+        <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
+          <Games />
+          <Screen code={code} width={WIDTH} height={HEIGHT} />
+        </article>
+      )}
       {mode == 'EDIT' && (
         <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
           <Editor code={code} setCode={setCode} />

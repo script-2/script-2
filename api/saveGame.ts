@@ -16,7 +16,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     gameId = `game:${uuidv4()}`
   }
 
-  await kv.hset(gameId, { code, username: login })
+  await kv.hset(gameId, { code, username: login, lastUpdated: Date.now() })
 
   return res.json({ gameId })
 }
