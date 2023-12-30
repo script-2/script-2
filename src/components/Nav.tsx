@@ -85,12 +85,18 @@ export function Nav({
   }
 
   return (
-    <nav className="flex justify-between border-b border-light">
+    <nav className="flex justify-between border-b border-dark">
       <ul className="flex">
-        <li className={`px-1 ${mode == 'GAMES' ? 'bg-light text-dark' : ''}`}>
+        <li
+          className={`px-1 ${
+            mode == 'GAMES' ? 'bg-lightest text-darkest' : ''
+          }`}
+        >
           <button onClick={onModeHandler}>GAMES</button>
         </li>
-        <li className={`px-1 ${mode == 'EDIT' ? 'bg-light text-dark' : ''}`}>
+        <li
+          className={`px-1 ${mode == 'EDIT' ? 'bg-lightest text-darkest' : ''}`}
+        >
           <button onClick={onModeHandler}>EDIT</button>
         </li>
         {mode == 'EDIT' && (

@@ -6,3 +6,14 @@ textarea {
 canvas {
   image-rendering: pixelated;
 }
+
+.cm-editor .cm-content,
+.cm-editor .cm-gutters {
+  font-family: 'VT323';
+  font-size: 1.25rem;
+}
+.cm-editor .cm-gutters {
+  background-color: #575553;
+  color: #a79588;
+  border-right-color: #a79588;
+}

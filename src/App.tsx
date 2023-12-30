@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import '@/App.css'
 import { Screen } from '@/components/Screen'
-import { Textarea } from '@/components/Textarea'
 import { Nav } from '@/components/Nav'
+import { Editor } from '@/components/Editor'
 import { Games } from '@/components/Games'
 import { skeleton } from '@/utils/skeleton'
 
@@ -34,12 +34,12 @@ function App() {
   }, [])
 
   return (
-    <main className="bg-dark text-light font-mono text-xl flex flex-col h-screen">
+    <main className="bg-darkest text-lightest font-mono text-xl flex flex-col h-screen">
       <Nav mode={mode} setMode={setMode} code={code} setCode={setCode} />
       {mode == 'GAMES' && <Games />}
       {mode == 'EDIT' && (
         <article className="h-screen font-mono flex flex-col-reverse sm:flex-row">
-          <Textarea value={code} setValue={setCode} />
+          <Editor code={code} setCode={setCode} />
           <Screen code={code} width={WIDTH} height={HEIGHT} />
         </article>
       )}

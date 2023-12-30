@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        light: '#f6d6bd',
-        dark: '#08141e',
+        lightest: '#F6D6BD',
+        light: '#A79588',
+        dark: '#575553',
+        darkest: '#08141E',
       },
       fontFamily: {
         mono: ['VT323', 'monospace'],
