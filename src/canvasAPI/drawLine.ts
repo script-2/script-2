@@ -3,7 +3,8 @@ export function drawLine(
   y1: number,
   x2: number,
   y2: number,
-  setPixel: (x: number, y: number) => void
+  setPixel: (x: number, y: number, color: number) => void,
+  color: number
 ) {
   let steep = false
 
@@ -25,9 +26,9 @@ export function drawLine(
 
   for (let x = x1; x <= x2; x++) {
     if (steep) {
-      setPixel(y, x)
+      setPixel(y, x, color)
     } else {
-      setPixel(x, y)
+      setPixel(x, y, color)
     }
     error += derror
     if (error > dx) {

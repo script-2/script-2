@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { drawLine } from '@/canvasAPI/drawLine'
+import { drawRectFill } from '@/canvasAPI/drawRectFill'
 
 onmessage = function (event: {
   data: {
@@ -8,7 +9,7 @@ onmessage = function (event: {
     code: string
     runInit: boolean
     state: object
-    mouseDown: boolean
+    pointerDown: boolean
   }
 }) {
   let { width, height, code, runInit, state, pointerDown } = event.data
@@ -19,18 +20,34 @@ onmessage = function (event: {
     let arrayBuffer = new ArrayBuffer(width * height * 4)
     let clampedArray = new Uint8ClampedArray(arrayBuffer)
 
-    function setPixel(x: number, y: number) {
+    function setPixel(x: number, y: number, color: number) {
       x = Math.floor(x)
       y = Math.floor(y)
-      clampedArray[y * width * 4 + x * 4 + 0] = 246
-      clampedArray[y * width * 4 + x * 4 + 1] = 214
-      clampedArray[y * width * 4 + x * 4 + 2] = 189
+      clampedArray[y * width * 4 + x * 4 + 0] = color ? 246 : 0
+      clampedArray[y * width * 4 + x * 4 + 1] = color ? 214 : 0
+      clampedArray[y * width * 4 + x * 4 + 2] = color ? 189 : 0
       clampedArray[y * width * 4 + x * 4 + 3] = 255
     }
 
     {
-      function line(x1: number, y1: number, x2: number, y2: number) {
-        drawLine(x1, y1, x2, y2, setPixel)
+      function line(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        color: number
+      ) {
+        drawLine(x1, y1, x2, y2, setPixel, color)
+      }
+
+      function rectFill(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        color: number
+      ) {
+        drawRectFill(x, y, width, height, color, line)
       }
 
       let init = () => ({})
@@ -40,7 +57,7 @@ onmessage = function (event: {
       eval(code)
 
       if (runInit) {
-        console.log('runInit', line)
+        console.log('runInit', rectFill)
         state = init()
       }
 
