@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { drawLine } from '@/canvasAPI/drawLine'
 import { drawRectFill } from '@/canvasAPI/drawRectFill'
+import { drawCircle } from '@/canvasAPI/drawCircle'
 
 onmessage = function (event: {
   data: {
@@ -30,13 +31,7 @@ onmessage = function (event: {
     }
 
     {
-      function line(
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        color: number
-      ) {
+      function line(x1: number, y1: number, x2: number, y2: number, color = 1) {
         drawLine(x1, y1, x2, y2, setPixel, color)
       }
 
@@ -45,9 +40,21 @@ onmessage = function (event: {
         y: number,
         width: number,
         height: number,
-        color: number
+        color = 1
       ) {
         drawRectFill(x, y, width, height, color, line)
+      }
+
+      function circFill(x: number, y: number, radius: number, color = 1) {
+        drawCircle(
+          Math.floor(x),
+          Math.floor(y),
+          Math.floor(radius),
+          color,
+          setPixel,
+          line,
+          false
+        )
       }
 
       let init = () => ({})
@@ -57,7 +64,7 @@ onmessage = function (event: {
       eval(code)
 
       if (runInit) {
-        console.log('runInit', rectFill)
+        console.log('runInit', rectFill, circFill)
         state = init()
       }
 
