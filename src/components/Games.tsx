@@ -17,20 +17,18 @@ export function Games() {
   }, [])
 
   return (
-    <article className="flex-1">
-      <section>
-        <ul>
-          {games.map((game) => {
-            return (
-              <li key={game.key}>
-                <a href={`/?gameId=${game.key}`} className="underline">
-                  Last updated: {new Date(+game.lastUpdated).toLocaleString()}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      </section>
-    </article>
+    <section className="mb-6 sm:mb-0">
+      <ul>
+        {games.map((game) => {
+          return (
+            <li key={game.key}>
+              <a href={`/?gameId=${game.key}&mode=PLAY`} className="underline">
+                Last updated: {new Date(+game.lastUpdated).toLocaleString()}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
   )
 }

@@ -4,15 +4,15 @@ import { Canvas } from '@/components/Canvas'
 
 const PIXEL_SIZE = 5
 const FPS = 30
+const WIDTH = 64
+const HEIGHT = 64
 
 export function Screen({
   code,
-  width,
-  height,
+  className,
 }: {
   code: string
-  width: number
-  height: number
+  className?: string
 }) {
   let worker = useRef<Worker | null>(null)
   let gameState = useRef({})
@@ -37,8 +37,8 @@ export function Screen({
   useInterval(() => {
     if (worker.current) {
       worker.current.postMessage({
-        width,
-        height,
+        width: WIDTH,
+        height: HEIGHT,
         code,
         runInit: runInit.current,
         state: gameState.current,
@@ -69,20 +69,20 @@ export function Screen({
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <section className={className}>
       <Canvas
-        width={width}
-        height={height}
+        width={WIDTH}
+        height={HEIGHT}
         pixelSize={PIXEL_SIZE}
         clampedArray={clampedArray}
       />
       <button
-        className="w-full h-40 select-none"
+        className="w-80 h-40 select-none border border-dark mt-6"
         onPointerDown={pointerDownHandler}
         onPointerUp={pointerUpHandler}
       >
         Press me
       </button>
-    </div>
+    </section>
   )
 }

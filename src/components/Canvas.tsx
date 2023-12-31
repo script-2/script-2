@@ -26,7 +26,7 @@ export function Canvas({
 
   return (
     <canvas
-      className="block border-b border-l border-r border-dark"
+      className="block border border-dark"
       ref={canvasRef}
       width={width}
       height={width}

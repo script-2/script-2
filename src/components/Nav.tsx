@@ -55,6 +55,9 @@ export function Nav({
   function onModeHandler(event: React.MouseEvent<HTMLButtonElement>) {
     let textContent = event.currentTarget.textContent as Mode
     setMode(textContent)
+    let url = new URL(window.location.toString())
+    url.searchParams.delete('mode')
+    history.pushState({}, '', url)
   }
 
   async function onNewHandler() {
@@ -109,6 +112,11 @@ export function Nav({
             <button onClick={onSaveHandler}>SAVE</button>
           </li>
         )}
+        <li
+          className={`px-1 ${mode == 'PLAY' ? 'bg-lightest text-darkest' : ''}`}
+        >
+          <button onClick={onModeHandler}>PLAY</button>
+        </li>
       </ul>
       <ul className="flex">
         <li className="px-1">
