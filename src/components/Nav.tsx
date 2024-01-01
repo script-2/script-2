@@ -16,6 +16,7 @@ export function Nav({
 }) {
   let [accessToken, setAccessToken] = useState<string | undefined>(undefined)
   let [username, setUsername] = useState<string | undefined>(undefined)
+  let [isSaving, setIsSaving] = useState(false)
 
   window.script2 = {
     handleCode: async (githubAppCode: string) => {
@@ -66,6 +67,7 @@ export function Nav({
   }
 
   async function onSaveHandler() {
+    setIsSaving(true)
     let url = new URL(window.location.toString())
     let gameId = url.searchParams.get('gameId')
 
@@ -85,6 +87,7 @@ export function Nav({
       url.searchParams.set('gameId', gameId)
       history.pushState({}, '', url)
     }
+    setIsSaving(false)
   }
 
   return (
@@ -117,6 +120,7 @@ export function Nav({
         >
           <button onClick={onModeHandler}>PLAY</button>
         </li>
+        {isSaving && <li>SAVING</li>}
       </ul>
       <ul className="flex">
         <li className="px-1">
