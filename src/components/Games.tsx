@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
+import { Screen } from '@/components/Screen'
+
+export interface Game {
+  key: string
+  code: string
+  lastUpdated: number
+  username: string
+}
 
 export function Games() {
-  let [games, setGames] = useState<
-    { key: string; code: string; lastUpdated: string; username: string }[]
-  >([])
+  let [games, setGames] = useState<Game[]>([])
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +28,7 @@ export function Games() {
         {games.map((game) => {
           return (
             <li key={game.key}>
+              <Screen code={game.code} size={2} />
               <a href={`/?gameId=${game.key}&mode=PLAY`} className="underline">
                 Last updated: {new Date(+game.lastUpdated).toLocaleString()}
               </a>
