@@ -36,7 +36,7 @@ function App() {
   }, [])
 
   return (
-    <main className="bg-darkest text-lightest font-mono text-xl pb-6">
+    <main className="bg-darkest text-lightest font-mono text-xl">
       <Nav mode={mode} setMode={setMode} code={code} setCode={setCode} />
       {mode == 'GAMES' && (
         <article className="font-mono mx-6 mt-6 flex flex-col sm:flex-row sm:justify-between">
@@ -46,7 +46,10 @@ function App() {
       {mode == 'EDIT' && (
         <article className="font-mono flex flex-col sm:flex-row">
           <Editor code={code} setCode={setCode} />
-          <Screen code={code} className="hidden sm:block" />
+          <Screen
+            code={code}
+            className="hidden sm:block sticky bg-darkest top-6 h-screen"
+          />
         </article>
       )}
       {mode == 'PLAY' && (

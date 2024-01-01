@@ -24,6 +24,7 @@ onmessage = function (event: {
     function setPixel(x: number, y: number, color: number) {
       x = Math.floor(x)
       y = Math.floor(y)
+      if (x < 0 || x >= width || y < 0 || y >= height) return
       clampedArray[y * width * 4 + x * 4 + 0] = color ? 246 : 0
       clampedArray[y * width * 4 + x * 4 + 1] = color ? 214 : 0
       clampedArray[y * width * 4 + x * 4 + 2] = color ? 189 : 0
