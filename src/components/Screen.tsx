@@ -2,17 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { useInterval } from '@/utils/useSetInterval'
 import { Canvas } from '@/components/Canvas'
 
-const PIXEL_SIZE = 5
-const FPS = 30
 const WIDTH = 64
 const HEIGHT = 64
+const FPS = 30
 
 export function Screen({
   code,
   className,
+  showPointer,
+  size,
 }: {
   code: string
+  size: number
   className?: string
+  showPointer?: boolean
 }) {
   let worker = useRef<Worker | null>(null)
   let gameState = useRef({})
@@ -73,16 +76,18 @@ export function Screen({
       <Canvas
         width={WIDTH}
         height={HEIGHT}
-        pixelSize={PIXEL_SIZE}
+        pixelSize={size}
         clampedArray={clampedArray}
       />
-      <button
-        className="w-80 h-40 select-none border border-dark mt-6"
-        onPointerDown={pointerDownHandler}
-        onPointerUp={pointerUpHandler}
-      >
-        Press me
-      </button>
+      {showPointer && (
+        <button
+          className="w-80 h-40 select-none border border-dark mt-6"
+          onPointerDown={pointerDownHandler}
+          onPointerUp={pointerUpHandler}
+        >
+          Press me
+        </button>
+      )}
     </section>
   )
 }

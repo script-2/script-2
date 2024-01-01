@@ -49,12 +49,14 @@ function App() {
           <Screen
             code={code}
             className="hidden sm:block sticky bg-darkest top-6 h-screen"
+            showPointer={true}
+            size={5}
           />
         </article>
       )}
       {mode == 'PLAY' && (
         <article className="flex flex-col items-center mt-6">
-          <Screen code={code} />
+          <Screen code={code} showPointer={true} size={5} />
         </article>
       )}
     </main>
