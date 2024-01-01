@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { format } from 'timeago.js'
 import { Screen } from '@/components/Screen'
 
 export interface Game {
@@ -24,13 +25,16 @@ export function Games() {
 
   return (
     <section className="mb-6 sm:mb-0">
-      <ul>
+      <ul className="flex flex-row">
         {games.map((game) => {
           return (
-            <li key={game.key}>
+            <li key={game.key} className="mr-6 text-center">
               <Screen code={game.code} size={2} />
-              <a href={`/?gameId=${game.key}&mode=PLAY`} className="underline">
-                Last updated: {new Date(+game.lastUpdated).toLocaleString()}
+              <a
+                href={`/?gameId=${game.key}&mode=PLAY`}
+                className="underline text-sm"
+              >
+                Updated {format(game.lastUpdated)}
               </a>
             </li>
           )
